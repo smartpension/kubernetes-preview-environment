@@ -19,12 +19,12 @@ jobs:
     - name: Create namespace
       uses: okteto/create-namespace@master
       with:
-        namespace: pr-${{ github.event.number }}-cindylopez
+        namespace: pr-${{ github.event.number }}-sikian
 
     - name: Deploy Application
       uses: okteto/apply@master
       with:
-        namespace: pr-${{ github.event.number }}-cindylopez
+        namespace: pr-${{ github.event.number }}-sikian
         manifest: manifests
 
     - name: Push API Changes
@@ -42,4 +42,4 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        msg: "Preview environment available at https://movies-pr-${{ github.event.number }}-cindylopez.cloud.okteto.net"
+        msg: "Preview environment available at https://movies-pr-${{ github.event.number }}-sikian.cloud.okteto.net"
