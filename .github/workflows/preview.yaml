@@ -1,4 +1,4 @@
-on: 
+on:
   pull_request:
     branches:
       - master
@@ -7,38 +7,38 @@ jobs:
   preview:
     runs-on: ubuntu-latest
     steps:
-    - name: checkout
-      uses: actions/checkout@master
+      - name: checkout
+        uses: actions/checkout@master
 
-    - name: Login
-      uses: okteto/login@master
-      with:
-        token: ${{ secrets.OKTETO_TOKEN }}
+      - name: Login
+        uses: okteto/login@master
+        with:
+          token: ${{ secrets.OKTETO_TOKEN }}
 
-    - name: Create namespace
-      uses: okteto/create-namespace@master
-      with:
-        namespace: pr-${{ github.event.number }}-rberrelleza
+      - name: Create namespace
+        uses: okteto/create-namespace@master
+        with:
+          namespace: pr-${{ github.event.number }}-sikian
 
-    - name: Deploy Application
-      uses: okteto/apply@master
-      with:
-        namespace: pr-${{ github.event.number }}-rberrelleza
-        manifest: manifests
+      - name: Deploy Application
+        uses: okteto/apply@master
+        with:
+          namespace: pr-${{ github.event.number }}-sikian
+          manifest: manifests
 
-    - name: Push API Changes
-      uses: okteto/push@master
-      with:
-        working-directory: api
+      - name: Push API Changes
+        uses: okteto/push@master
+        with:
+          working-directory: api
 
-    - name: Push Frontend Changes
-      uses: okteto/push@master
-      with:
-        working-directory: frontend
+      - name: Push Frontend Changes
+        uses: okteto/push@master
+        with:
+          working-directory: frontend
 
-    - name: comment PR
-      uses: unsplash/comment-on-pr@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        msg: "Preview environment available at https://movies-pr-${{ github.event.number }}-rberrelleza.cloud.okteto.net"
+      - name: comment PR
+        uses: unsplash/comment-on-pr@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          msg: "Preview environment available at https://movies-pr-${{ github.event.number }}-sikian.cloud.okteto.net"
